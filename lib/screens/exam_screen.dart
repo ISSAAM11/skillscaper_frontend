@@ -11,14 +11,20 @@ import 'package:skillscaper_app/items/header.dart';
 import 'package:skillscaper_app/items/exam_items/Exam_main_element.dart';
 
 class ExamScreen extends StatelessWidget {
+  final String idtestRequest;
   final String idExam;
-  const ExamScreen(this.idExam, {super.key});
+  const ExamScreen(
+    this.idExam,
+    this.idtestRequest, {
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     final tokenBloc = BlocProvider.of<TokenBloc>(context);
     final authBloc = BlocProvider.of<AuthBloc>(context);
     int idExamInt = int.parse(idExam);
+    int idtestRequestInt = int.parse(idtestRequest);
     return BlocBuilder<AuthBloc, AuthState>(builder: (context, authState) {
       if (authState is AuthLogout) {
         WidgetsBinding.instance.addPostFrameCallback(
@@ -55,7 +61,8 @@ class ExamScreen extends StatelessWidget {
             child: Column(
               children: [
                 HeaderItem(),
-                ExamMainElement(idExam: idExamInt),
+                ExamMainElement(
+                    idExam: idExamInt, idtestRequest: idtestRequestInt),
               ],
             ),
           ),

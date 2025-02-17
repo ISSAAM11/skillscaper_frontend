@@ -9,7 +9,8 @@ class AuthLogout extends AuthState {}
 class AuthLoading extends AuthState {}
 
 class AuthSuccess extends AuthState {
-  AuthSuccess();
+  final User user;
+  AuthSuccess(this.user);
 }
 
 class AuthFailed extends AuthState {

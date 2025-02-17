@@ -22,70 +22,71 @@ class LoginMainElement extends StatelessWidget {
       }
     }
 
-    return SizedBox(
-      child: Form(
-        key: _formKey,
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 15),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Login screen",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+    return Center(
+        child: Form(
+      key: _formKey,
+      child: Container(
+        width: 500,
+        padding: EdgeInsets.symmetric(horizontal: 15),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Login screen",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            TextFormField(
+              controller: _controllerEmail,
+              decoration: InputDecoration(
+                labelText: 'Username',
+                border: OutlineInputBorder(),
               ),
-              SizedBox(
-                height: 15,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return "Username is required";
+                }
+                // if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                //   return 'Please enter a valid email';
+                // }
+                return null;
+              },
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            TextFormField(
+              obscureText: true,
+              controller: _controllerPassword,
+              decoration: InputDecoration(
+                labelText: 'Password',
+                border: OutlineInputBorder(),
               ),
-              TextFormField(
-                controller: _controllerEmail,
-                decoration: InputDecoration(
-                  labelText: 'Email',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Email is required";
-                  }
-                  // if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                  //   return 'Please enter a valid email';
-                  // }
-                  return null;
-                },
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              TextFormField(
-                obscureText: true,
-                controller: _controllerPassword,
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Password is required";
-                  }
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return "Password is required";
+                }
 
-                  return null;
+                return null;
+              },
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  submit();
                 },
+                child: Text('Login'),
               ),
-              SizedBox(
-                height: 15,
-              ),
-              Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    submit();
-                  },
-                  child: Text('Login'),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
-    );
+    ));
   }
 }

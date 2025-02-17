@@ -6,6 +6,7 @@ import 'package:skillscaper_app/blocs/auth_bloc/auth_state.dart';
 import 'package:skillscaper_app/blocs/token_bloc/token_bloc.dart';
 import 'package:skillscaper_app/blocs/token_bloc/token_event.dart';
 import 'package:skillscaper_app/items/login_items/login_main_element.dart';
+import 'package:skillscaper_app/utils/color_theme.dart';
 import 'package:skillscaper_app/utils/notification_utils.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -31,8 +32,11 @@ class LoginScreen extends StatelessWidget {
           });
         }
         return Scaffold(
-          appBar: AppBar(title: Text('Login page')),
-          body: SizedBox(height: double.infinity, child: LoginMainElement()),
+          appBar: AppBar(
+            title: Text('Skillscaper app'),
+            backgroundColor: const Color.fromARGB(255, 255, 181, 116),
+          ),
+          body: LoginMainElement(),
         );
       },
     );

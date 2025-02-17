@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:skillscaper_app/models/user.dart';
 import './auth_event.dart';
 import './auth_state.dart';
 import '../../services/auth_service.dart';
@@ -10,8 +11,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthenticateRequest>((event, emit) async {
       emit(AuthLoading());
       try {
-        await authService.loginUser(event.email, event.password);
-        emit(AuthSuccess());
+        User user = await authService.loginUser(event.email, event.password);
+        emit(AuthSuccess(user));
       } catch (error) {
         emit(AuthFailed(error.toString()));
       }
@@ -26,7 +27,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (user == null) {
         emit(AuthLogout());
       } else {
-        emit(AuthSuccess());
+        emit(AuthSuccess(user));
       }
     });
   }

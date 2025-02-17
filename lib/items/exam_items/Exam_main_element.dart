@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:skillscaper_app/blocs/exam_bloc/exam_bloc.dart';
+import 'package:skillscaper_app/blocs/test_request_bloc/test_request_bloc.dart';
 import 'package:skillscaper_app/blocs/token_bloc/token_bloc.dart';
 import 'package:skillscaper_app/blocs/token_bloc/token_event.dart';
 import 'package:skillscaper_app/blocs/token_bloc/token_state.dart';
@@ -11,8 +12,9 @@ import 'package:skillscaper_app/items/exam_items/result_item.dart';
 
 class ExamMainElement extends StatefulWidget {
   final int idExam;
-
-  const ExamMainElement({super.key, required this.idExam});
+  final int idtestRequest;
+  const ExamMainElement(
+      {super.key, required this.idExam, required this.idtestRequest});
 
   @override
   State<ExamMainElement> createState() => _ExamMainElementState();
@@ -41,7 +43,9 @@ class _ExamMainElementState extends State<ExamMainElement> {
   Widget build(BuildContext context) {
     final examBloc = BlocProvider.of<ExamBloc>(context);
     final tokenBloc = BlocProvider.of<TokenBloc>(context);
+    final testRequestBloc = BlocProvider.of<TestRequestBloc>(context);
 
+//  bloc builder for testrequest
     return BlocBuilder<ExamBloc, ExamState>(
       builder: (context, state) {
         if (state is ExamInitial) {
@@ -61,12 +65,12 @@ class _ExamMainElementState extends State<ExamMainElement> {
           return QuestionItem(
             exam: state.exam,
             question: state.question,
-            idtestRequest: widget.idExam,
+            idtestRequest: widget.idtestRequest,
           );
         }
         if (state is ExamFinishedstate) {
-          return ResultItem(
-              testRequest: state.testRequest, totalScore: state.totalScore);
+          testRequestBloc.add(TestRequestResetevent());
+          return ResultItem(testRequest: state.testRequest, examFinished: true);
         }
 
         if (state is ExamTokenExpired) {

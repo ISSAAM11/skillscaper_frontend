@@ -19,12 +19,7 @@ final class TestRequestRetreved extends TestRequestState {
   TestRequestRetreved(this.testRequest);
 }
 
-// final class TestRequestNotYet extends TestRequestState {
-//   final TestRequest testRequest;
-//   TestRequestNotYet(this.testRequest);
-// }
-
-// final class TestRequestEmpty extends TestRequestState {
-//   final TestRequest testRequest;
-//   TestRequestEmpty(this.testRequest);
-// }
+final class TestRequestResult extends TestRequestState {
+  final TestRequest testRequest;
+  TestRequestResult(this.testRequest);
+}

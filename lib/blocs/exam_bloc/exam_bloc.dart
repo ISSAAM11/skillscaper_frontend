@@ -19,10 +19,16 @@ class ExamBloc extends Bloc<ExamEvent, ExamState> {
 
   ExamBloc() : super(ExamInitial()) {
     on<ExamRetreveEvent>((event, emit) async {
-      final Exam exam =
-          await examService.retrieveOneExamRequest(event.examId, event.token);
+      try {
+        final Exam exam =
+            await examService.retrieveOneExamRequest(event.examId, event.token);
 
-      emit(ExamRetreved(exam));
+        emit(ExamRetreved(exam));
+      } on TokenExpiredException catch (_) {
+        emit(ExamTokenExpired());
+      } catch (e) {
+        emit(ExamDataFailed(e.toString()));
+      }
     });
     on<ExamStartEvent>((event, emit) {
       try {

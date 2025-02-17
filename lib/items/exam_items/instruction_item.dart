@@ -64,7 +64,7 @@ class InstructionItem extends StatelessWidget {
             SizedBox(height: 25),
             ElevatedButton(
               onPressed: () {
-                examBloc.add(ExamStartEvent("1_a", exam));
+                examBloc.add(ExamStartEvent("1", exam));
               },
               child: Text('Start your test'),
             )

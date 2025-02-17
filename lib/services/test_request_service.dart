@@ -4,8 +4,8 @@ import 'package:skillscaper_app/models/test_requiest.dart';
 import 'package:skillscaper_app/utils/utils.dart';
 
 class TestRequestService {
-  Future<List<TestRequest>> retrieveTestRequest(idExam, token) async {
-    final url = Uri.parse("http://$serverPath/api/exam/test_request/${idExam}");
+  Future<List<TestRequest>> retrieveTestRequest(idUser, token) async {
+    final url = Uri.parse("http://$serverPath/api/exam/test_request/${idUser}");
     try {
       final Dio dio = Dio();
       final response = await dio.getUri(url,
@@ -36,14 +36,15 @@ class TestRequestService {
     }
   }
 
-  Future<TestRequest> updateTestRequest(Map testRequest, String token) async {
+  Future<TestRequest> updateTestRequest(
+      Map testRequestMap, String token) async {
     final url = Uri.parse(
-        "http://$serverPath/api/exam/test_request/${testRequest["id"]}/update/");
+        "http://$serverPath/api/exam/test_request/${testRequestMap["id"]}/update/");
 
     try {
       final Dio dio = Dio();
       final response = await dio.patchUri(url,
-          data: testRequest,
+          data: testRequestMap,
           options: Options(headers: {'Authorization': 'Bearer $token'}));
       handleNoDataReceivedException(response);
 

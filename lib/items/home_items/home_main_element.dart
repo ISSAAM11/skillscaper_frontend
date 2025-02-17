@@ -5,9 +5,33 @@ import 'package:go_router/go_router.dart';
 import 'package:skillscaper_app/blocs/test_request_bloc/test_request_bloc.dart';
 import 'package:skillscaper_app/blocs/token_bloc/token_bloc.dart';
 import 'package:skillscaper_app/blocs/token_bloc/token_state.dart';
+import 'package:skillscaper_app/items/exam_items/result_item.dart';
 
-class HomeMainElement extends StatelessWidget {
+class HomeMainElement extends StatefulWidget {
   const HomeMainElement({super.key});
+
+  @override
+  State<HomeMainElement> createState() => _HomeMainElementState();
+}
+
+class _HomeMainElementState extends State<HomeMainElement> {
+  TestRequestBloc? examBloc;
+  bool isInitialized = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!isInitialized) {
+      examBloc = BlocProvider.of<TestRequestBloc>(context);
+      isInitialized = true;
+    }
+  }
+
+  @override
+  void dispose() {
+    examBloc!.add(TestRequestResetevent());
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +42,7 @@ class HomeMainElement extends StatelessWidget {
         builder: (context, state) {
       if (state is TestRequestInitial) {
         testRequestBloc.add(
-            ExamRetreveEvent(1, (tokenBloc.state as TokenRetrieved).token));
+            TestRequestRetreveEvent((tokenBloc.state as TokenRetrieved).token));
       }
       if (state is TestRequestDataFailed) {
         return Center(child: Text(state.error));
@@ -45,11 +69,16 @@ class HomeMainElement extends StatelessWidget {
                 final dateLimit = state.testRequest[index - 1].timeLimit;
                 return ListTile(
                   onTap: () {
-                    if (DateTime.now().isBefore(dateLimit) &&
-                        !state.testRequest[index - 1].isCompleted) {
+                    if (state.testRequest[index - 1].isCompleted) {
+                      testRequestBloc.add(TestRequestDetailsEvent(
+                          state.testRequest[index - 1]));
+                    } else if (DateTime.now().isBefore(dateLimit)) {
                       GoRouter.of(context).go(
-                          "/Exam/${state.testRequest[index - 1].id}",
-                          extra: {"Exam": state.testRequest[index - 1]});
+                          "/Exam/${state.testRequest[index - 1].id}/${state.testRequest[index - 1].exam.id}",
+                          extra: {
+                            "idRequest": state.testRequest[index - 1].id,
+                            "idExam": state.testRequest[index - 1].exam.id
+                          });
                     }
                   },
                   enabled: DateTime.now().isAfter(dateLimit) &&
@@ -90,6 +119,9 @@ class HomeMainElement extends StatelessWidget {
             ),
           ),
         );
+      }
+      if (state is TestRequestResult) {
+        return ResultItem(testRequest: state.testRequest, examFinished: false);
       }
       return SizedBox();
     });

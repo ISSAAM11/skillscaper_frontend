@@ -45,10 +45,12 @@ class _InitialScreenState extends State<InitialScreen> {
         builder: (context, state) => HomeScreen(),
       ),
       GoRoute(
-        path: '/Exam/:id',
+        path: '/Exam/:idRequest/:idExam',
         pageBuilder: (BuildContext context, GoRouterState state) {
-          final id = state.pathParameters["id"]!;
-          return NoTransitionPage(child: ExamScreen(id));
+          final idtestRequest = state.pathParameters["idExam"]!;
+          final idExam = state.pathParameters["idRequest"]!;
+
+          return NoTransitionPage(child: ExamScreen(idtestRequest, idExam));
         },
       ),
     ],

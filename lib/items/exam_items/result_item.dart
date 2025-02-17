@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:skillscaper_app/models/exam/exam.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:skillscaper_app/blocs/token_bloc/token_bloc.dart';
+import 'package:skillscaper_app/blocs/token_bloc/token_state.dart';
 import 'package:skillscaper_app/models/test_requiest.dart';
+
+import '../../blocs/test_request_bloc/test_request_bloc.dart';
 
 class ResultItem extends StatelessWidget {
   final TestRequest testRequest;
-  final int totalScore;
-
+  final bool examFinished;
   const ResultItem(
-      {super.key, required this.testRequest, required this.totalScore});
+      {super.key, required this.testRequest, required this.examFinished});
 
   @override
   Widget build(BuildContext context) {
+    final testRequestBloc = BlocProvider.of<TestRequestBloc>(context);
+    final tokenBloc = BlocProvider.of<TokenBloc>(context);
+
     return Expanded(
       child: Center(
         child: SizedBox(
@@ -18,11 +25,22 @@ class ResultItem extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(children: [
               Text(
-                "You completed your ${testRequest.id} test!!",
+                "You completed your ${testRequest.id} test !!",
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 17),
               ),
               SizedBox(height: 30),
-              Text("This is your result: ${totalScore}"),
+              Text("This is your result: ${testRequest.totalScore}"),
+              SizedBox(height: 30),
+              ElevatedButton(
+                  onPressed: () {
+                    if (examFinished) {
+                      GoRouter.of(context).go('/home');
+                    } else {
+                      testRequestBloc.add(TestRequestRetreveEvent(
+                          (tokenBloc.state as TokenRetrieved).token));
+                    }
+                  },
+                  child: Text("Go back"))
             ]),
           ),
         ),
