@@ -64,6 +64,12 @@ class _ExamMainElementState extends State<ExamMainElement> {
             child: CircularProgressIndicator(),
           ));
         }
+        if (state is ExamLoadingState) {
+          return Expanded(
+              child: Center(
+            child: CircularProgressIndicator(),
+          ));
+        }
         if (state is ExamRetreved) {
           return InstructionItem(exam: state.exam);
         }

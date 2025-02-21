@@ -20,6 +20,7 @@ class ExamBloc extends Bloc<ExamEvent, ExamState> {
   ExamBloc() : super(ExamInitial()) {
     on<ExamRetreveEvent>((event, emit) async {
       try {
+        emit(ExamLoadingState());
         final Exam exam =
             await examService.retrieveOneExamRequest(event.examId, event.token);
 

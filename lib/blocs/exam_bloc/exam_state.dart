@@ -30,3 +30,5 @@ final class ExamDataFailed extends ExamState {
 
   ExamDataFailed(this.error);
 }
+
+final class ExamLoadingState extends ExamState {}
