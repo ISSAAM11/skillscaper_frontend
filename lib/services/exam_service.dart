@@ -5,7 +5,7 @@ import 'package:skillscaper_app/utils/utils.dart';
 
 class ExamService {
   Future<Exam> retrieveOneExamRequest(idUser, token) async {
-    final url = Uri.parse("http://$serverPath/api/exam/exams/${idUser}/");
+    final url = Uri.parse("$serverPath/api/exam/exams/${idUser}/");
     try {
       final Dio dio = Dio();
       final response = await dio.getUri(url,

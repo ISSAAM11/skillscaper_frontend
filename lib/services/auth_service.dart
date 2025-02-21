@@ -7,7 +7,7 @@ import 'package:skillscaper_app/utils/utils.dart';
 
 class AuthService {
   Future<User> loginUser(String username, String password) async {
-    final url = Uri.parse("http://$serverPath/api/auth/login/");
+    final url = Uri.parse("$serverPath/api/auth/login/");
 
     try {
       final Dio dio = Dio();

@@ -25,11 +25,14 @@ class ResultItem extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(children: [
               Text(
-                "You completed your ${testRequest.id} test !!",
+                "You completed your ${testRequest.exam.testName} test !",
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 17),
               ),
               SizedBox(height: 30),
               Text("This is your result: ${testRequest.totalScore}"),
+              SizedBox(height: 10),
+              // Text(
+              //     "There is ${testRequest.exam.question.length} possible question on this exam"),
               SizedBox(height: 30),
               ElevatedButton(
                   onPressed: () {

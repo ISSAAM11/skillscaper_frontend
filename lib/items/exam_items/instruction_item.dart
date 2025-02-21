@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:skillscaper_app/blocs/exam_bloc/exam_bloc.dart';
 import 'package:skillscaper_app/blocs/token_bloc/token_bloc.dart';
 import 'package:skillscaper_app/models/exam/exam.dart';
+import 'package:skillscaper_app/utils/color_theme.dart';
 
 class InstructionItem extends StatelessWidget {
   final Exam exam;
@@ -12,9 +12,7 @@ class InstructionItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final examBloc = BlocProvider.of<ExamBloc>(context);
-    final tokenBloc = BlocProvider.of<TokenBloc>(context);
 
-    final initial_question = "1_a";
     return Expanded(
         child: Center(
             child: SizedBox(
@@ -26,16 +24,16 @@ class InstructionItem extends StatelessWidget {
           children: [
             Text(
               "Hello Mentee to the ${exam.testName} Test!",
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
             ),
             SizedBox(height: 10),
             Text(
-              "In this test there is  ${exam.question.length} possible Questions",
+              "In this test there is ${exam.question.length} possible Questions",
               style: TextStyle(fontSize: 13),
             ),
             SizedBox(height: 10),
             Text(
-              "in each question you have ${exam.timerQuestion} second to answer the question",
+              "You have ${exam.timerQuestion} maximum seconds to answer each question",
               style: TextStyle(fontSize: 13),
             ),
             SizedBox(height: 30),
@@ -63,10 +61,17 @@ class InstructionItem extends StatelessWidget {
             ),
             SizedBox(height: 25),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: ColorTheme.primary,
+              ),
               onPressed: () {
                 examBloc.add(ExamStartEvent("1", exam));
               },
-              child: Text('Start your test'),
+              child: Text(
+                'Start your test',
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+              ),
             )
           ],
         ),

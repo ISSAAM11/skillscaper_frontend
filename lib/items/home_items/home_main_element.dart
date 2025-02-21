@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:skillscaper_app/blocs/test_request_bloc/test_request_bloc.dart';
 import 'package:skillscaper_app/blocs/token_bloc/token_bloc.dart';
+import 'package:skillscaper_app/blocs/token_bloc/token_event.dart';
 import 'package:skillscaper_app/blocs/token_bloc/token_state.dart';
 import 'package:skillscaper_app/items/exam_items/result_item.dart';
 
@@ -49,6 +50,7 @@ class _HomeMainElementState extends State<HomeMainElement> {
       }
 
       if (state is TestRequestTokenExpired) {
+        tokenBloc.add(TokenRefresh());
         return Center(child: CircularProgressIndicator());
       }
       if (state is TestRequestRetreved) {

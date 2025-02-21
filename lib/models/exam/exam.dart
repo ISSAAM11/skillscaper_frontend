@@ -5,12 +5,14 @@ class Exam {
   final String testName;
   final int timerQuestion;
   final List<Question> question;
+  final String videoLink;
 
   Exam({
     required this.id,
     required this.testName,
     required this.timerQuestion,
     required this.question,
+    required this.videoLink,
   });
 
   factory Exam.fromJson(Map<String, dynamic> json) {
@@ -21,6 +23,7 @@ class Exam {
       question: (json['questions'] as List)
           .map((questionJson) => Question.fromJson(questionJson))
           .toList(),
+      videoLink: json['video_file_exam'],
     );
   }
 
@@ -31,6 +34,7 @@ class Exam {
       'test_name': testName,
       'timer_question': timerQuestion,
       'question': question.map((q) => q.toMap()).toList(),
+      'video_file_exam': videoLink
     };
   }
 
@@ -40,6 +44,7 @@ class Exam {
       timerQuestion: json['timerQuestion'],
       testName: json['test_name'],
       question: [],
+      videoLink: json['video_file_exam'],
     );
   }
 }

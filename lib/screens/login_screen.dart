@@ -33,8 +33,14 @@ class LoginScreen extends StatelessWidget {
         }
         return Scaffold(
           appBar: AppBar(
-            title: Text('Skillscaper app'),
-            backgroundColor: const Color.fromARGB(255, 255, 181, 116),
+            title: Text(
+              'Skillscaper app',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 1),
+            ),
+            backgroundColor: ColorTheme.primary,
           ),
           body: LoginMainElement(),
         );

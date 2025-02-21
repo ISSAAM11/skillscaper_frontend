@@ -34,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
       }
       return BlocBuilder<TokenBloc, TokenState>(builder: (context, tokenState) {
         if (tokenState is TokenExpired) {
+          tokenBloc.add(TokenRefresh());
           return const Center(
             child: CircularProgressIndicator(),
           );

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:skillscaper_app/blocs/auth_bloc/auth_bloc.dart';
 import 'package:skillscaper_app/blocs/auth_bloc/auth_event.dart';
+import 'package:skillscaper_app/utils/color_theme.dart';
 
 class LoginMainElement extends StatelessWidget {
   const LoginMainElement({super.key});
@@ -78,10 +79,17 @@ class LoginMainElement extends StatelessWidget {
             ),
             Center(
               child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: ColorTheme.primary,
+                ),
                 onPressed: () {
                   submit();
                 },
-                child: Text('Login'),
+                child: Text(
+                  'Login',
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.w600),
+                ),
               ),
             ),
           ],

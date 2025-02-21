@@ -9,6 +9,7 @@ import 'package:skillscaper_app/blocs/token_bloc/token_state.dart';
 import 'package:skillscaper_app/items/exam_items/instruction_item.dart';
 import 'package:skillscaper_app/items/exam_items/question_item.dart';
 import 'package:skillscaper_app/items/exam_items/result_item.dart';
+import 'package:skillscaper_app/utils/notification_utils.dart';
 
 class ExamMainElement extends StatefulWidget {
   final int idExam;
@@ -45,8 +46,13 @@ class _ExamMainElementState extends State<ExamMainElement> {
     final tokenBloc = BlocProvider.of<TokenBloc>(context);
     final testRequestBloc = BlocProvider.of<TestRequestBloc>(context);
 
-//  bloc builder for testrequest
-    return BlocBuilder<ExamBloc, ExamState>(
+    return BlocConsumer<ExamBloc, ExamState>(
+      listener: (context, state) {
+        if (state is ExamFinishedstate) {
+          successNotification(context,
+              "You have completed ${state.testRequest.exam.testName} exam");
+        }
+      },
       builder: (context, state) {
         if (state is ExamInitial) {
           examBloc.add(ExamRetreveEvent(

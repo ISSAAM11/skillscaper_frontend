@@ -19,7 +19,7 @@ class TokenService {
     final prefs = await SharedPreferences.getInstance();
     final userData = (json.decode(prefs.getString('userData')!) as Map);
     final refreshToken = userData['refresh_token'];
-    final url = Uri.parse("http://$serverPath/api/v1/auth/refresh/");
+    final url = Uri.parse("$serverPath/api/v1/auth/refresh/");
     try {
       final Dio dio = Dio();
       final data = {'refresh': refreshToken};

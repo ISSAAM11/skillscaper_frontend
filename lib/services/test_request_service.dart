@@ -5,7 +5,7 @@ import 'package:skillscaper_app/utils/utils.dart';
 
 class TestRequestService {
   Future<List<TestRequest>> retrieveTestRequest(idUser, token) async {
-    final url = Uri.parse("http://$serverPath/api/exam/test_request/${idUser}");
+    final url = Uri.parse("$serverPath/api/exam/test_request/${idUser}");
     try {
       final Dio dio = Dio();
       final response = await dio.getUri(url,
@@ -39,7 +39,7 @@ class TestRequestService {
   Future<TestRequest> updateTestRequest(
       Map testRequestMap, String token) async {
     final url = Uri.parse(
-        "http://$serverPath/api/exam/test_request/${testRequestMap["id"]}/update/");
+        "$serverPath/api/exam/test_request/${testRequestMap["id"]}/update/");
 
     try {
       final Dio dio = Dio();

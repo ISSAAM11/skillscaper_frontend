@@ -2,13 +2,15 @@ class Answer {
   final int id;
   final String answerText;
   final int score;
-  final int? nextQuestionId; // Represents the ForeignKey to the next Question
+  final int? nextQuestionId;
+  final int? viderTiming;
 
   Answer({
     required this.id,
     required this.answerText,
     required this.score,
     this.nextQuestionId,
+    this.viderTiming,
   });
 
   // Method to create an Answer object from a JSON map
@@ -18,6 +20,7 @@ class Answer {
       answerText: json['answer_text'],
       score: json['score'],
       nextQuestionId: json['next_question'],
+      viderTiming: json['video_timing'],
     );
   }
 
@@ -28,6 +31,7 @@ class Answer {
       'answer_text': answerText,
       'score': score,
       'next_question': nextQuestionId,
+      'video_timing': viderTiming,
     };
   }
 }

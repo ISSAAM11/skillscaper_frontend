@@ -15,14 +15,15 @@ class HeaderItem extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 50,
-      color: const Color.fromARGB(255, 194, 194, 194),
+      color: ColorTheme.primary,
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20),
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Text(
-            "SkillCapper App",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            "Skillscaper App",
+            style: TextStyle(
+                fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),
           ),
           ElevatedButton(
             onPressed: () {

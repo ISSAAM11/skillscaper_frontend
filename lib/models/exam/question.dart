@@ -6,12 +6,15 @@ class Question {
   final int examId;
   final String questionText;
   final List<Answer> answers;
+  final int? viderTiming; // Represents the ForeignKey to the next Question
+
   Question({
     required this.id,
     required this.questionLevel,
     required this.examId,
     required this.questionText,
     required this.answers,
+    this.viderTiming,
   });
 
   factory Question.fromJson(Map<String, dynamic> json) {
@@ -23,6 +26,7 @@ class Question {
       answers: (json['answers'] as List)
           .map((questionJson) => Answer.fromJson(questionJson))
           .toList(),
+      viderTiming: json['video_timing'],
     );
   }
 
@@ -33,7 +37,8 @@ class Question {
       'question_level': questionLevel,
       'exam_id': examId,
       'question_text': questionText,
-      "answers": answers
+      "answers": answers,
+      'video_timing': viderTiming,
     };
   }
 }

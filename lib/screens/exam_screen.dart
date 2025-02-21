@@ -36,6 +36,7 @@ class ExamScreen extends StatelessWidget {
       }
       return BlocBuilder<TokenBloc, TokenState>(builder: (context, tokenState) {
         if (tokenState is TokenExpired) {
+          tokenBloc.add(TokenRefresh());
           return const Center(
             child: CircularProgressIndicator(),
           );
