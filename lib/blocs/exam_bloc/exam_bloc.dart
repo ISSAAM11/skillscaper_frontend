@@ -23,7 +23,7 @@ class ExamBloc extends Bloc<ExamEvent, ExamState> {
         emit(ExamLoadingState());
         final Exam exam =
             await examService.retrieveOneExamRequest(event.examId, event.token);
-
+        print(exam.videoLink);
         emit(ExamRetreved(exam));
       } on TokenExpiredException catch (_) {
         emit(ExamTokenExpired());

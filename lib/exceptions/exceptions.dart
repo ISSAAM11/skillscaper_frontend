@@ -50,7 +50,7 @@ void handleDioException(DioException e) {
           case 400:
             throw ServerException(400, 'Bad request');
           case 401:
-            throw TokenExpiredException('Authentication token has expired');
+            throw TokenExpiredException('Username or password incorrect');
           case 403:
             throw ServerException(403, 'Forbidden: Insufficient permissions');
           case 404:
